@@ -20,6 +20,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int totalRow = 14;
     public final int WIDTH = 14 * tileWidth;
     public final int HEIGHT = tileHeight + 48*scale;
+    public UI ui = new UI(this);
 
     int FPS = 60;
 
@@ -80,6 +81,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         tileM.draw(g2);
         entityH.draw(g2);
+
+        ui.draw(g2);
 
         g2.dispose();
     }

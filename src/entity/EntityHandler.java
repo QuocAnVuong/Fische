@@ -8,9 +8,9 @@ import java.awt.*;
 public class EntityHandler extends Entity{
     GamePanel gp;
     KeyHandler keyH;
-    Boat boat;
-    Dice dice;
-    Fishes fishes;
+    public Boat boat;
+    public Dice dice;
+    public Fishes fishes;
     public boolean diceTimer = false, done = true;
 
     public EntityHandler(GamePanel gp, KeyHandler keyH){
@@ -30,7 +30,7 @@ public class EntityHandler extends Entity{
         if(!diceTimer && !done){
             if(dice.result <4){
                 //If this fish is catched
-                if(fishes.getCatched(dice.result)){
+                if(fishes.getCaught(dice.result)){
                     boat.run = true;
                 }
                 else {
@@ -57,16 +57,19 @@ public class EntityHandler extends Entity{
         }
         fishes.update();
         boat.update();
+
     }
 
     public void draw(Graphics2D g2){
         fishes.draw(g2);
         boat.draw(g2);
+
         //Check if Boat catch any
         fishes.collision(boat.x+boat.boatWidth);
 
         if (diceTimer) {
             dice.draw(g2);
         }
+
     }
 }

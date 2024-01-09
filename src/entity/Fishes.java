@@ -21,6 +21,9 @@ public class Fishes{
     int fishTimer = 20;
     public int run = -1;
 
+    public int fishRemaining = 4;
+    public int fishFinished = 0;
+
     public Fishes(GamePanel gp,EntityHandler entityH){
         this.gp = gp;
         this.entityH = entityH;
@@ -73,8 +76,14 @@ public class Fishes{
         if(run != -1){
             fish[run].x += speed;
             fishCount++;
-            if(fish[run].x >= gp.tileWidth*13+12){
+            if(fish[run].x >= gp.tileWidth*13+12 && !fish[run].finished){
                 fish[run].finished = true;
+                fishFinished++;
+                if (fishFinished >= 3)
+                {
+                    gp.ui.gameFinished = true;
+                    gp.ui.fishWin = true;
+                }
             }
         }
         if(fishCount>=fishTimer){
@@ -93,12 +102,14 @@ public class Fishes{
 
     public void collision(int boatX){
         for(int i=0;i<4;i++){
-            if(boatX>fish[i].x){
+            if(boatX>fish[i].x && !fish[i].caught){
                 fish[i].caught =true;
+                fishRemaining--;
+                gp.ui.showMessage("Fish number " + (4 - fishRemaining) + " is caught!");
             }
         }
     }
-    public boolean getCatched(int fishNum){
+    public boolean getCaught(int fishNum){
         return fish[fishNum].caught;
     }
     public boolean getFinished(int fishNum){
