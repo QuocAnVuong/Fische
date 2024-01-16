@@ -10,8 +10,14 @@ public class UI {
     int messageCounter = 0;
     public boolean gameFinished = false;
     public boolean fishWin = false;
+<<<<<<< Updated upstream
     public boolean boatWin = false;
     public boolean tie = false;
+=======
+    public  boolean boatWin = false;
+    public boolean tie = false;
+    public int commandNum = 0;
+>>>>>>> Stashed changes
 
     public  UI(GamePanel gp){
         this.gp = gp;
@@ -49,10 +55,56 @@ public class UI {
 
             gp.gameThread = null;
         }
+<<<<<<< Updated upstream
         else {
             g2.setFont(arial_20);
             g2.setColor(Color.white);
             g2.drawString("Fishes remaining = " + gp.entityH.fishes.fishRemaining, 50, 400);
+=======
+        // PAUSE STATE
+        if (gp.gameState == gp.pauseState) {
+            drawPauseScreen();
+        }
+
+        if (gameFinished == true){
+            String text = "Game end!";
+
+            if (boatWin)
+                text = "The Boatmen caught enough Fishes!!!";
+            else if (fishWin) {
+                text = "The Fishes escaped to the sea!!!";
+            }
+            else if (tie){
+                text = "The game is tie ._.";
+            }
+
+            int x = getXforCenteredText(text);
+            g2.drawString(text, x, 200);
+
+            //gp.gameState = gp.titleState;
+
+        }
+        else {
+            g2.setFont(arial_40);
+            g2.setColor(Color.white);
+            g2.drawString("Fishes remaining = " + gp.entityH.fishes.fishRemaining, 50, 400);
+
+            if (messageOn == true) {
+                g2.drawString(message, 750, 400);
+
+                messageCounter++;
+
+                if (messageCounter > 120) {
+                    messageCounter = 0;
+                    messageOn = false;
+                }
+            }
+        }
+    }
+
+    public void drawTitleScreen() {
+        g2.drawImage(menuImage,0,0,gp.WIDTH,gp.HEIGHT,null);
+>>>>>>> Stashed changes
 
             if (messageOn == true) {
                 g2.drawString(message, 750, 400);
